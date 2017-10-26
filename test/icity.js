@@ -27,6 +27,15 @@ describe("src/icity.ts", function () {
   assert.equal(examplejs_printLines.join("\n"), "{\"province\":\"上海\",\"city\":\"上海\",\"areaCode\":\"021\",\"provider\":\"中国移动\"}"); examplejs_printLines = [];
   });
           
+  it("parse():virtual providers", function () {
+    examplejs_printLines = [];
+  examplejs_print(JSON.stringify(icity.parse('17069990000')))
+  assert.equal(examplejs_printLines.join("\n"), "{\"province\":\"辽宁\",\"city\":\"沈阳\",\"areaCode\":\"024\",\"provider\":\"中国移动\"}"); examplejs_printLines = [];
+
+  examplejs_print(JSON.stringify(icity.parse('17070000000')))
+  assert.equal(examplejs_printLines.join("\n"), "{\"province\":\"北京\",\"city\":\"北京\",\"areaCode\":\"010\",\"provider\":\"中国联通\"}"); examplejs_printLines = [];
+  });
+          
   it("parse():coverage", function () {
     examplejs_printLines = [];
   examplejs_print(JSON.stringify(icity.parse()))

@@ -1,7 +1,7 @@
 {
   "name": "icity",
   "description": "Get the tools for the city where your phone number is located",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "http://github.com/zswang/icity",
   "main": "lib/icity",
   "typings": "lib/icity.d.ts",

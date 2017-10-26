@@ -26,6 +26,16 @@ export interface ICityInfo {
  */
 let cityBuffer: { [key: string]: Buffer } = {}
 /**
+ * @file icity
+ * @url https://github.com/zswang/icity.git
+ * Get the tools for the city where your phone number is located
+ * @author
+ *   zswang (http://weibo.com/zswang)
+ * @version 0.0.2
+ * @date 2017-10-26
+ * @license MIT
+ */
+/**
  * 解析手机号
  * @param phone 手机号
  * @return 返回手机所在城市信息
@@ -40,6 +50,13 @@ let cityBuffer: { [key: string]: Buffer } = {}
   ```js
   console.log(JSON.stringify(icity.parse('15900940000')))
   // > {"province":"上海","city":"上海","areaCode":"021","provider":"中国移动"}
+  ```
+ * @example parse():virtual providers
+  ```js
+  console.log(JSON.stringify(icity.parse('17069990000')))
+  // > {"province":"辽宁","city":"沈阳","areaCode":"024","provider":"中国移动"}
+  console.log(JSON.stringify(icity.parse('17070000000')))
+  // > {"province":"北京","city":"北京","areaCode":"010","provider":"中国联通"}
   ```
  * @example parse():coverage
   ```js
@@ -59,7 +76,7 @@ function parse(phone: string): ICityInfo {
   //  012  3456
   // [131][1234][5678]
   let providerCode = phone.slice(0, 3)
-  let provider = providers[providerCode]
+  let provider = providers[providerCode] || virtualProviders[phone.slice(0, 4)]
   if (!provider) {
     return null
   }
@@ -437,7 +454,6 @@ const providers: {
     157: '中国移动',
     158: '中国移动',
     159: '中国移动',
-    170: '中国联通',
     171: '中国联通',
     172: '中国移动',
     173: '中国电信',
@@ -455,5 +471,20 @@ const providers: {
     187: '中国移动',
     188: '中国移动',
     189: '中国电信',
+  }
+// #endregion
+// #region virtual providers
+const virtualProviders: {
+  [key: number]: string
+} = {
+    1700: '中国电信',
+    1701: '中国电信',
+    1702: '中国电信',
+    1703: '中国移动',
+    1705: '中国移动',
+    1706: '中国移动',
+    1707: '中国联通',
+    1708: '中国联通',
+    1709: '中国联通',
   }
 // #endregion
